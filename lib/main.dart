@@ -36,8 +36,32 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late final TextEditingController email;
+  late final TextEditingController password;
+  // late means that this variable does't have a value right now, but it will have one before it gets used.
+
+//the initState() and dispose() are only for stateful widgets only
+  @override
+  void initState() {
+    email = TextEditingController();
+    password = TextEditingController(); // this is like a constructor
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose(); // this is like a destructor.
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +70,12 @@ class HomePage extends StatelessWidget {
           title: const Text("Hello Bro"),
           backgroundColor: Colors.blue,
         ),
-        body: Center(
-            child: TextButton(
-                onPressed: () async {}, child: const Text('Register'))));
+        body: Column(
+          children: [
+            TextField(),
+            TextField(),
+            TextButton(onPressed: () async {}, child: const Text('Register')),
+          ],
+        ));
   }
 }
