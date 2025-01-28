@@ -60,18 +60,26 @@ class _HomePageState extends State<HomePage> {
           children: [
             TextField(
               controller: email,
+              enableSuggestions: false,
+              autocorrect: false,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(hintText: "Your email"),
             ), // this is how we assign our controller to the text field given.
             TextField(
               controller: password,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
               decoration: InputDecoration(hintText: "Your password"),
             ), // this is how we assign our controller to the text field given.
             TextButton(
                 onPressed: () async {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: email.text, password: password.text);
+                  final userCredential = await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: email.text, password: password.text);
                   // created an instance of firebase and give it the username and the password written by the user (the value we got from the textControllers)
                   // and since this FirebaseAuth returns a future we need to await of it for it to really perform the work we want
+                  print(userCredential);
                 },
                 child: const Text('Register')),
           ],
